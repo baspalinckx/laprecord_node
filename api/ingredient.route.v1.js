@@ -1,8 +1,8 @@
 const express = require('express');
 const routes = express.Router();
 const mongodb = require('../config/mongo.db');
-const Recipe = require('../model/recipe.model');
-const ingredients = require('../model/ingredients').Ingredient;
+const Recipe = require('../model/car');
+const ingredients = require('../model/circuit').Ingredient;
 
 routes.get('/ingredients', function(req, res) {
     res.contentType('application/json');

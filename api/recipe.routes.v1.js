@@ -1,7 +1,7 @@
 const express = require('express');
 const routes = express.Router();
 const mongodb = require('../config/mongo.db');
-const recipes = require('../model/recipe.model');
+const recipes = require('../model/car');
 
 routes.get('/recipes', function(req, res) {
     res.contentType('application/json');
