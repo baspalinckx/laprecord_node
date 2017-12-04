@@ -27,7 +27,7 @@ Record.count({}, function (err, count) {
             weather: 'Sunny',
             circuit:
                 {
-                    name: 'Circuit Zandvoort',
+                    name: 'Circuit of Zandvoort',
                     country: 'The Netherlands',
                     length: '4,3 KM'
                 },
@@ -45,7 +45,7 @@ Record.count({}, function (err, count) {
         }).save();
     }
     else {
-        console.log('zit al een circuit in db')
+        console.log('zit al een record in db')
     }
 });
 
