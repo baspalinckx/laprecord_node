@@ -1,24 +1,39 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const IngredientSchema = require('./ingredients').IngredientSchema;
 
-const RecipeSchema = new Schema({
-    name: {
+const CarSchema = new Schema({
+    brand: {
         type: String,
         required: true
     },
-    description: {
+    model: {
+        type: String,
+        required: true
+    },
+    type: {
+        type: String,
+        required: true
+    },
+    year: {
+        type: Number,
+        required: true
+    },
+    modification: {
+        type: String,
+        required: true
+    },
+    tire: {
         type: String,
         required: true
     },
     imagePath: String,
-    ingredients: [IngredientSchema]
 
 });
 
 
-const Recipe = mongoose.model('recipe', RecipeSchema);
+const Car = mongoose.model('car', CarSchema);
 
+/*
 Recipe.count({}, function (err, count) {
  if(count < 5){
  console.log('voeg recipe toe');
@@ -46,8 +61,8 @@ Recipe.count({}, function (err, count) {
  console.log('zit al een recipe in de db')
  }
  });
-
-
-
-
-module.exports = Recipe;
+*/
+module.exports={
+    Car: Car
+    , CarSchema : CarSchema
+};
