@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const CircuitSchema = require('./car').CircuitSchema;
-const CarSchema = require('./circuit').CarSchema;
+const CircuitSchema = require('./circuit').CircuitSchema;
+const CarSchema = require('./car').CarSchema;
 
 const RecordSchema = new Schema({
     time:{
@@ -17,12 +17,13 @@ const RecordSchema = new Schema({
 
 });
 
-const Record = mongoose.model('records', RecordSchema);
+const Record = mongoose.model('record', RecordSchema);
 
 Record.count({}, function (err, count) {
-    if(count < 5){
-        console.log('voeg recipe toe');
-        const Record = new Record({
+    if(count < 2){
+        records.remove({});
+        console.log('voeg record toe');
+        const record1 = new Record({
             time: '2:05:02',
             weather: 'Sunny',
             circuit:
@@ -42,7 +43,33 @@ Record.count({}, function (err, count) {
                 }
 
 
-        }).save();
+        }
+        ).save();
+
+        const record2 = new Record({
+                time: '15:05:02',
+                weather: 'Rainy',
+                circuit:
+                    {
+                        name: 'NurburgRing',
+                        country: 'Germany',
+                        length: '22KM'
+                    },
+                car:
+                    {
+                        brand: 'BMW',
+                        model: '325i',
+                        type: 'Coupe',
+                        year: 1992,
+                        modification: 'Coilovers, Upgraded brakes',
+                        tire: 'Bridgetone Potenza'
+                    }
+
+
+            }
+        ).save();
+
+
     }
     else {
         console.log('zit al een record in db')

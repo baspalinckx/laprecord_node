@@ -2,6 +2,7 @@ const express = require('express');
 const routes = express.Router();
 const mongodb = require('../config/mongo.db');
 const records = require('../model/record');
+const car = require('../model/car');
 
 routes.get('/records', function(req, res) {
     res.contentType('application/json');
@@ -24,10 +25,24 @@ routes.get('/records/:id', function(req, res) {
         .then((records) => {
         res.status(200).json({
         'succes': true,
-        'recipe': records
+        'record': records
     });
 })
 .catch((error) => res.status(400).json(error));
+});
+
+routes.get('/records/brand/:brand', function(req, res) {
+    res.contentType('application/json');
+    const brandParam = req.param('brand');
+    console.log(brandParam);
+    records.find( {"car.brand": brandParam})
+        .then((records) => {
+            res.status(200).json({
+                'succes': true,
+                'record': records
+            });
+        })
+        .catch((error) => res.status(400).json(error));
 });
 
 
@@ -60,7 +75,7 @@ routes.delete('/records/:id', function(req, res) {
     records.findByIdAndRemove(id)
         .then((status) => res.status(200).json({
         'succes': true,
-        'records': status
+        'record': status
     }))
 .catch((error) => res.status(400).json(error))
 });
