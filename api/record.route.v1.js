@@ -45,6 +45,20 @@ routes.get('/records/brand/:brand', function(req, res) {
         .catch((error) => res.status(400).json(error));
 });
 
+routes.get('/records/circuit/:circuit', function(req, res) {
+    res.contentType('application/json');
+    const circuitParam = req.param('circuit');
+    console.log(circuitParam);
+    records.find( {"circuit.name": circuitParam})
+        .then((records) => {
+            res.status(200).json({
+                'succes': true,
+                'record': records
+            });
+        })
+        .catch((error) => res.status(400).json(error));
+});
+
 
 routes.post('/records', function(req, res) {
     const recordProps = req.body;
