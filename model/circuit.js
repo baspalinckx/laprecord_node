@@ -13,7 +13,8 @@ const CircuitSchema = new Schema({
     length: {
         type: String,
         required: true
-    },
+    }
+
 });
 
 const Circuit = mongoose.model('circuits', CircuitSchema);
