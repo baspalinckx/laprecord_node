@@ -21,16 +21,17 @@ const Record = mongoose.model('record', RecordSchema);
 
 Record.count({}, function (err, count) {
     if(count < 2){
-        records.remove({});
         console.log('voeg record toe');
         const record1 = new Record({
             time: '2:05:02',
             weather: 'Sunny',
+
             circuit:
                 {
                     name: 'Circuit of Zandvoort',
                     country: 'The Netherlands',
-                    length: '4,3 KM'
+                    length: '4,3 KM',
+
                 },
             car:
                 {
@@ -39,7 +40,9 @@ Record.count({}, function (err, count) {
                     type: 'Roadster',
                     year: 1992,
                     modification: 'Coilovers, Upgraded brakes',
-                    tire: 'Advan Neova AD08R'
+                    tire: 'Advan Neova AD08R',
+                    imagePath: 'http://sep.autoalbum.nl/system/photo/image/7019/M0812-0244.jpg'
+
                 }
 
 
@@ -53,7 +56,7 @@ Record.count({}, function (err, count) {
                     {
                         name: 'NurburgRing',
                         country: 'Germany',
-                        length: '22KM'
+                        length: '22KM',
                     },
                 car:
                     {
@@ -62,7 +65,8 @@ Record.count({}, function (err, count) {
                         type: 'Coupe',
                         year: 1992,
                         modification: 'Coilovers, Upgraded brakes',
-                        tire: 'Bridgetone Potenza'
+                        tire: 'Bridgetone Potenza',
+                        imagePath: 'https://hips.hearstapps.com/roa.h-cdn.co/assets/17/17/1493231499-m3ring.jpg'
                     }
 
 

@@ -25,8 +25,11 @@ const CarSchema = new Schema({
     tire: {
         type: String,
         required: true
+    },
+    imagePath: {
+        type: String,
+        required: true
     }
-
 });
 
 
