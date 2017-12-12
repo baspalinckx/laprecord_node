@@ -4,6 +4,10 @@ const mongodb = require('../config/mongo.db');
 const records = require('../model/record');
 const cars = require('../model/car').Car;
 const circuits = require('../model/circuit');
+const neo4j = require('neo4j-driver').v1;
+
+const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
+const session = driver.session();
 
 
 
@@ -75,28 +79,59 @@ routes.get('/records/circuit/:name/car/:brand', function(req, res) {
         .catch((error) => res.status(400).json(error));
 });
 
-routes.get('/circuits       ', function(req, res) {
-    res.contentType('application/json');
-    records.find({}, { _id: 0, time: 0, weather: 0 , circuit: 0, car: 1, __v: 0  })
-        .then((brands) => {
-            res.status(200).json({
-                'records': brands
+routes.get('/records/circuit/:name/cars', function(req, res) {
+    const circuitParam = req.param('name');
+    const resultPromise = session.writeTransaction(tx => tx.run(
+        "MATCH (circuit { name: {circuitParam} })--(car)" +
+        "RETURN car", {circuitParam: circuitParam}));
+
+    resultPromise.then(result => {
+        var carsArray = [];
+        result.records.forEach(function (records) {
+            carsArray.push({
+                brand: records._fields[0].properties.name,
+                model: records._fields[0].properties.model
+
             });
+
+            res.status(200).json({
+                'cars': carsArray
+            });
+
         })
-        .catch((error) => res.status(400).json(error));
+            .catch((error) => res.status(400).json(error));
+    });
 });
 
 
 routes.post('/records', function(req, res) {
     const recordProps = req.body;
+    const recordCircuitNameProp = req.body.circuit.name;
+    const recordCarBrandProp = req.body.car.brand;
+    const recordCarModelProp = req.body.car.model;
+
+
 
     records.create(recordProps)
         .then((records) => {
         res.status(200).send(records)
 
 })
-        
+
 .catch((error) => res.status(400).json(error))
+
+    session
+        .run("MERGE(c:Circuit {name:{circuitParam}})" +
+            "MERGE(ca:Car {name:{carParam}, model:{modelParam}})" +
+            "CREATE (ca)-[r:RACED_ON]->(c)", {circuitParam: recordCircuitNameProp, carParam: recordCarBrandProp, modelParam: recordCarModelProp})
+        .then(function(result){
+            res.redirect('/');
+            session.close();
+        })
+        .catch(function(error){
+            console.log(error);
+        });
+
 });
 
 
