@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
 before((done) => {
-    mongoose.connect('mongodb://localhost:27017');
+    mongoose.connect('mongodb://localhost/records_test');
     mongoose.connection
         .once('open', () => { done(); })
         .on('error', (error) => {
