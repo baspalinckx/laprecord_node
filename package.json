@@ -4,8 +4,14 @@
   "description": "Node server met API naar mongodb database",
   "main": "server.js",
   "scripts": {
-    "test": "node node_modules/mocha/bin/_mocha ./test/*test.js --reporter spec",
-    "start": "nodemon server.js"
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build --prod --env=prod",
+    "build:prod": "ng build --prod --env=prod && node server.js",
+    "lint": "tslint \"src/*/.ts\"",
+    "test": "ng test",
+    "e2e": "ng e2e",
+    "postinstall": "ng build --prod --env=prod"
   },
   "repository": {
     "type": "git",
