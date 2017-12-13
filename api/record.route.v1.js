@@ -118,7 +118,9 @@ routes.get('/records/circuit/:name/cars', function(req, res) {
             result.records.forEach(function(records){
                 carsArray.push(records._fields[0].properties)
             });
-            res.status(200).json(carsArray);
+            res.status(200).json({
+                cars: carsArray
+            });
             console.log(carsArray);
         })
         .catch((error) => {
