@@ -6,8 +6,8 @@ const cars = require('../model/car').Car;
 const circuits = require('../model/circuit');
 const neo4j = require('neo4j-driver').v1;
 
- const driver = neo4j.driver("bolt://hobby-iklebjifjhecgbkehfnegjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-database", "b.KKWY4XBJptva.Uc1tSLYbM5h8ZdSG"));
-//const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
+// const driver = neo4j.driver("bolt://hobby-iklebjifjhecgbkehfnegjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-database", "b.KKWY4XBJptva.Uc1tSLYbM5h8ZdSG"));
+const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
 
 const session = driver.session();
 
