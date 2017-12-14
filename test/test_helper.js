@@ -5,7 +5,7 @@ mongoose.Promise = global.Promise;
 before((done) => {
     mongoose.connect('mongodb://localhost/records_test');
     mongoose.connection
-        .once('open', () => { done(); })
+        .once('open', () => { done(); console.log("Lets go");})
         .on('error', (error) => {
             console.warn('Warning', error);
         });

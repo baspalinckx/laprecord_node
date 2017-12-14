@@ -1,6 +1,7 @@
 const assert = require('assert');
 const Record = require('../model/record');
 
+
 describe('Deleting a record', () => {
     let rec;
 

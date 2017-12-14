@@ -51,12 +51,4 @@ describe('Reading records out of the databaes', () => {
             });
     });
 
-    it('filter records on circuit name', (done) => {
-        Record.find( {"circuit.name": ""})
-            .then((records) => {
-                res.status(200).json({
-                    'record': records
-                });
-            })
-    })
 });
