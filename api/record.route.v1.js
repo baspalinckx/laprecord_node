@@ -80,28 +80,28 @@ routes.get('/records/circuit/:name/car/:brand', function(req, res) {
 });
 
 routes.get('/records/circuit/:name/cars', function(req, res) {
+    //res.contentType('application/json');
+
+    const carsArray = [];
     const circuitParam = req.param('name');
-    const resultPromise = session.writeTransaction(tx => tx.run(
-        "MATCH (circuit { name: {circuitParam} })--(car)" +
-        "RETURN car", {circuitParam: circuitParam}));
 
-    resultPromise.then(result => {
-        var carsArray = [];
-        result.records.forEach(function (records) {
-            carsArray.push({
-                brand: records._fields[0].properties.name,
-                model: records._fields[0].properties.model
-
+    session
+        .run("MATCH (circuit { name: {circuitParam} })--(car)" +
+            "RETURN car", {circuitParam: circuitParam})
+        .then(function(result) {
+            result.records.forEach(function(records){
+                carsArray.push(records._fields[0].properties)
             });
-
             res.status(200).json({
-                'cars': carsArray
+                cars: carsArray
             });
-
+            console.log(carsArray);
         })
-            .catch((error) => res.status(400).json(error));
-    });
+        .catch((error) => {
+            res.status(400).json(error);
+        })
 });
+
 
 
 routes.post('/records', function(req, res) {
