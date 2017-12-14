@@ -81,29 +81,8 @@ routes.get('/records/circuit/:name/car/:brand', function(req, res) {
         .catch((error) => res.status(400).json(error));
 });
 
-// routes.get('/records/circuit/:name/cars', function(req, res) {
-//     const circuitParam = req.param('name');
-//     const resultPromise = session.writeTransaction(tx => tx.run(
-//         "MATCH (circuit { name: {circuitParam} })--(car)" +
-//         "RETURN car", {circuitParam: circuitParam}));
-//
-//     resultPromise.then(result => {
-//         var carsArray = [];
-//         result.records.forEach(function (records) {
-//             carsArray.push({
-//                 brand: records._fields[0].properties.name,
-//                 model: records._fields[0].properties.model
-//
-//             });
-//
-//             res.status(200).json({
-//                 'cars': carsArray
-//             });
-//
-//         })
-//             .catch((error) => res.status(400).json(error));
-//     });
-// });
+
+
 
 routes.get('/records/circuit/:name/cars', function(req, res) {
     //res.contentType('application/json');
