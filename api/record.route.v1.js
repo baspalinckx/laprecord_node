@@ -6,8 +6,13 @@ const cars = require('../model/car').Car;
 const circuits = require('../model/circuit');
 const neo4j = require('neo4j-driver').v1;
 
+<<<<<<< HEAD
 //const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
 const driver = neo4j.driver("bolt://hobby-ddgojckeehocgbkehlmojjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-production", "b.xLfC7zeqBkIA.7oQi3wmum5qUm38Y"));
+=======
+// const driver = neo4j.driver("bolt://hobby-iklebjifjhecgbkehfnegjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-database", "b.KKWY4XBJptva.Uc1tSLYbM5h8ZdSG"));
+const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
+>>>>>>> ab87ac6ea27b722c8743646160c58510ecf96570
 
 const session = driver.session();
 
@@ -81,6 +86,9 @@ routes.get('/records/circuit/:name/car/:brand', function(req, res) {
         .catch((error) => res.status(400).json(error));
 });
 
+
+
+
 routes.get('/records/circuit/:name/cars', function(req, res) {
     //res.contentType('application/json');
 
@@ -103,8 +111,6 @@ routes.get('/records/circuit/:name/cars', function(req, res) {
             res.status(400).json(error);
         })
 });
-
-
 
 routes.post('/records', function(req, res) {
     const recordProps = req.body;
