@@ -6,8 +6,10 @@ const cars = require('../model/car').Car;
 const circuits = require('../model/circuit');
 const neo4j = require('neo4j-driver').v1;
 
-// const driver = neo4j.driver("bolt://hobby-iklebjifjhecgbkehfnegjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-database", "b.KKWY4XBJptva.Uc1tSLYbM5h8ZdSG"));
-const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
+
+const driver = neo4j.driver("bolt://hobby-ddgojckeehocgbkehlmojjal.dbs.graphenedb.com:24786", neo4j.auth.basic("record-production", "b.xLfC7zeqBkIA.7oQi3wmum5qUm38Y"));
+// const driver = neo4j.driver("bolt://localhost", neo4j.auth.basic("neo", "neo"));
+
 
 const session = driver.session();
 
@@ -125,7 +127,7 @@ routes.post('/records', function(req, res) {
 
     session
         .run("MERGE(c:Circuit {name:{circuitParam}})" +
-            "MERGE(ca:Car {name:{carParam}, model:{modelParam}})" +
+            "MERGE(ca:Car {brand:{carParam}, model:{modelParam}})" +
             "CREATE (ca)-[r:RACED_ON]->(c)", {circuitParam: recordCircuitNameProp, carParam: recordCarBrandProp, modelParam: recordCarModelProp})
         .then(function(result){
             res.redirect('/');
